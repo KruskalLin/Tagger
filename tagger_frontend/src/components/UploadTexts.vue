@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div>Tips:</div>
-    <div style="font-size: 15px; color: #797979;margin-bottom: 20px;margin-top: 10px;">不支持含非utf-8字符文件<br>
+    <div style="font-size: 15px; color: #797979;margin-bottom: 20px;margin-top: 10px;">
     利用Stanford NER CRF训练的模型<br>
     英文LOCATION NER<br>
     上传文件即有标注，手动标注删除导出</div>
