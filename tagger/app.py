@@ -13,7 +13,7 @@ TAG_FOLDER = os.path.curdir + os.path.sep + 'tags' + os.path.sep
 ALLOWED_EXTENSIONS = {'txt'}
 JAR = './static/stanford-ner.jar'
 MODEL = './static/english.conll.4class.distsim.crf.ser.gz'
-ner_tagger = StanfordNERTagger(MODEL, JAR, encoding='utf8')
+ner_tagger = StanfordNERTagger(MODEL, JAR, encoding='gb2312')
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.')[-1].lower() in ALLOWED_EXTENSIONS
@@ -59,7 +59,7 @@ def upload_file():
                        + secure_filename(file.filename).rsplit('.')[1]
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            sentence = open(filepath, 'r', encoding='utf8').read()
+            sentence = open(filepath, 'r').read()
             tokens = nltk.word_tokenize(sentence)
             print(tokens)
             tags = ner_tagger.tag(tokens)
@@ -73,7 +73,7 @@ def upload_file():
                     })
             tag = {"data": merge_index(tags_index)}
             tagname = os.path.join(app.config['TAG_FOLDER'], filename.rsplit('.')[0] + '.json')
-            fp = open(tagname, 'w', encoding='utf8')
+            fp = open(tagname, 'w', encoding='gb2312')
             json.dump(tag, fp)
             return json.dumps({'code': 200, 'url': url_for('upload_file', filename=filename)})
 
@@ -88,7 +88,7 @@ def get_text_list():
 def texts():
     filename = request.args.get('name')
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    text = open(filepath, 'r', encoding='utf8').read()
+    text = open(filepath, 'r', encoding='gb2312').read()
     return text
 
 
@@ -96,7 +96,7 @@ def texts():
 def tags():
     filename = request.args.get('name')
     tagname = os.path.join(app.config['TAG_FOLDER'], filename.rsplit('.')[0] + '.json')
-    tags = open(tagname, 'r', encoding='utf8').read()
+    tags = open(tagname, 'r', encoding='gb2312').read()
     return tags
 
 
@@ -108,7 +108,7 @@ def save_tags():
     tags = data['tags']
     tag = {"data": tags}
     tagname = os.path.join(app.config['TAG_FOLDER'], filename.rsplit('.')[0] + '.json')
-    fp = open(tagname, 'w', encoding='utf8')
+    fp = open(tagname, 'w', encoding='gb2312')
     json.dump(tag, fp)
     return json.dumps({'code': 200})
 
