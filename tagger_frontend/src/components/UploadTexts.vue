@@ -14,6 +14,7 @@
       :on-remove.sync="remove"
       :on-preview.sync="preview"
       :on-success.sync="success"
+      :on-error="this.$message.error('non-utf8 character contain!!!')"
       :file-list="fileList">
       <el-button size="small" type="primary">Upload</el-button>
       <div slot="tip" class="el-upload__tip">Only txt file whose size is less than 16MB</div>
